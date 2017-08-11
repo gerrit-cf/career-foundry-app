@@ -1,0 +1,15 @@
+= form_for @product, html_: { class: 'form-horizontal' } do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control', id: :name
+    = f.errors :name
+
+  .form-group
+    = f.label :description
+    = f.text_area :description, rows: 10, class: 'form-control'
+
+  .form-group
+    = f.label :image_url
+    = f.text_field :image_url, class: 'form-control'
+
+  = f.submit class: 'btn btn-primary'

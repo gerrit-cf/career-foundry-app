@@ -1,0 +1,18 @@
+#products-page
+  .container
+    %h1 Browse all products
+    %table.table.table-striped
+      %th Name
+      %th Description
+      %th
+      - @products.each do |product|
+        - present(product) do |product|
+          %tr
+            %td= product.name
+            %td= product.description.truncate(150, separator: ' ')
+            %td
+              = link_to 'Details', product
+              = link_to 'Edit', edit_product_path(product)
+              = link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }
+
+    = link_to 'New Product', new_product_path, class: 'btn btn-primary'

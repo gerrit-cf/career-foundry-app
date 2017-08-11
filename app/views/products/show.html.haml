@@ -1,0 +1,11 @@
+#products-page
+  - present(@product) do |product|
+    .container
+      %h1= product.name
+      .row
+        .col-xs-12.col-md-4
+          .well.well-lg
+            Image will go here
+            = product.image_url_in_brackets
+        .col-xs-12.col-md-8
+          = product.description
