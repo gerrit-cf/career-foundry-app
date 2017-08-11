@@ -5,3 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+[
+  {
+    name: 'Session 9.9 DH 27.5 Race Shop Limited',
+    description: 'World Cup champion Session is built to win. An all-new OCLV Carbon frame, updated geometry, advanced air shock, and a stiffer chassis make this downhill race bike faster than ever.
+
+Session is the DH bike that excels on downhill\'s most brutal courses. Take on any terrain with our most advanced suspension and a geometry that can be dialed for every race.',
+    image_url: 'session_9_9_hh_27_5_race_shop_limited.jpg'
+  },
+  {
+    name: 'Powerfly 7 FS Plus',
+    description: 'Powerfly eMTB builds on its success with a new full suspension lineup that borrows from Trek’s proven off-road legacy.
+
+The full suspension Powerfly makes mountain biking even more fun. The Bosch Performance CX pedal assist e-bike system makes for a supremely capable electric bike that allows you to go farther and have more fun.',
+    image_url: 'powerfly_7_fs_plus.jpg'
+  }
+].each { |product| Product.create!(product) }
