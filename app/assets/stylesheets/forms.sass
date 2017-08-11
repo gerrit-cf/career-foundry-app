@@ -1,0 +1,18 @@
+.field_with_errors
+  input
+    $border-radius: 4px 4px 0 0
+
+    border-radius: $border-radius
+    -webkit-border-radius: $border-radius
+    border-bottom: 0
+
+.scoped-field-errors
+  $border-radius: 0 0 4px 4px
+
+  background: $bootstrap-error-background-color
+  border-radius: $border-radius
+  -webkit-border-radius: $border-radius
+  border: 1px solid $bootstrap-border-color
+  border-top: 0
+  color: $bootstrap-error-color
+  padding: 3px 7px
