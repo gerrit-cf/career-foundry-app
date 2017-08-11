@@ -9,7 +9,7 @@
         - present(product) do |product|
           %tr
             %td= product.name
-            %td= product.description.truncate(150, separator: ' ')
+            %td= product.truncated_description
             %td
               = link_to 'Details', product
               = link_to 'Edit', edit_product_path(product)

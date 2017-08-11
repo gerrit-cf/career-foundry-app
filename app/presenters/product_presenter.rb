@@ -6,4 +6,8 @@ class ProductPresenter < ApplicationPresenter
   def image_url_in_brackets
     "(#{image_url})" if image_url.present?
   end
+
+  def truncated_description
+    description.truncate(100, separator: ' ')
+  end
 end
