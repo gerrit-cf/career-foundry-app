@@ -5,4 +5,9 @@ module ApplicationHelper
       yield presenter if block_given?
     end
   end
+
+  def flash_class_for(type)
+    type = type.eql?('error') ? 'danger' : type
+    "alert alert-#{type}"
+  end
 end

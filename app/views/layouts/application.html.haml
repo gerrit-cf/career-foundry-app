@@ -11,6 +11,8 @@
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
   %body
     = render 'layouts/navigation'
+    .container
+      = render 'shared/flash_messages'
     = yield
 
     %footer.container
