@@ -8,4 +8,11 @@
             Image will go here
             = product.image_url_in_brackets
         .col-xs-12.col-md-8
-          = product.description
+          %p
+            %strong Description
+            %br
+            = product.description
+          %p
+            %strong Colour
+            %br
+            = @product.colour

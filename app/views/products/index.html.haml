@@ -4,12 +4,14 @@
     %table.table.table-striped
       %th Name
       %th Description
+      %th Colour
       %th
       - @products.each do |product|
         - present(product) do |product|
           %tr
             %td= product.name
             %td= product.truncated_description
+            %td= product.colour
             %td
               = link_to 'Details', product
               = link_to 'Edit', edit_product_path(product)
