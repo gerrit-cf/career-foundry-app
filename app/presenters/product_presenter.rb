@@ -3,8 +3,11 @@ class ProductPresenter < ApplicationPresenter
     super.presence || 'No description provided.'
   end
 
-  def image_url_in_brackets
-    "(#{image_url})" if image_url.present?
+  def image_url
+    # External ressources only for now.
+    # We do not want an invalid asset to break our app.
+    return super if external_url?(super)
+    ''
   end
 
   def truncated_description
