@@ -13,7 +13,8 @@
 
 Session is the DH bike that excels on downhill\'s most brutal courses. Take on any terrain with our most advanced suspension and a geometry that can be dialed for every race.',
     image_url: 'https://trek.scene7.com/is/image/TrekBicycleProducts/1176800_2017_A_1_Session_99_DH?wid=1200&hei=1000&fmt=jpg,rgb',
-    color: 'Red'
+    colour: 'Red',
+    price: 7_500
   },
   {
     name: 'Powerfly 7 FS Plus',
@@ -21,6 +22,7 @@ Session is the DH bike that excels on downhill\'s most brutal courses. Take on a
 
 The full suspension Powerfly makes mountain biking even more fun. The Bosch Performance CX pedal assist e-bike system makes for a supremely capable electric bike that allows you to go farther and have more fun.',
     image_url: 'https://trek.scene7.com/is/image/TrekBicycleProducts/2932700_2018_A_1_Powerfly_FS_7?wid=1200&hei=1000&fmt=jpg,rgb',
-    color: 'Black'
+    colour: 'Black',
+    price: 2_900
   }
 ].each { |product| Product.create!(product) }
