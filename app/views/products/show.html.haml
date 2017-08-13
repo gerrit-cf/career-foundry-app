@@ -4,9 +4,8 @@
       %h1= product.name
       .row
         .col-xs-12.col-md-4
-          .well.well-lg
-            Image will go here
-            = product.image_url_in_brackets
+          = image_tag(product.image_url, class: 'img-responsive', alt: '')
+          = number_to_currency(product.price, unit: '€')
         .col-xs-12.col-md-8
           %p
             %strong Description

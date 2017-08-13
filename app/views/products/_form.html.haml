@@ -9,6 +9,11 @@
     = f.text_area :description, rows: 10, class: 'form-control'
 
   .form-group
+    = f.label :price
+    = f.text_field :price, class: 'form-control'
+    = f.errors :price
+
+  .form-group
     = f.label :colour
     = f.text_field :colour, class: 'form-control'
 
