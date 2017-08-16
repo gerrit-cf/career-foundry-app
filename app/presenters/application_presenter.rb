@@ -4,6 +4,10 @@ class ApplicationPresenter < SimpleDelegator
     super(model)
   end
 
+  def h
+    @view
+  end
+
   def external_url?(url)
     URI.parse(url).host.present?
   end

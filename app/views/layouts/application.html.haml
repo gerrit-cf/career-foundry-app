@@ -5,15 +5,16 @@
     %meta(name='viewport' content='width=device-width, initial-scale=1')
     = csrf_meta_tags
 
+    = stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Montserrat'
     = stylesheet_link_tag    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
   %body
     = render 'layouts/navigation'
-    .container
+    .container-fluid
       = render 'shared/flash_messages'
     = yield
 
-    %footer.container
+    %footer.container-fluid
       &copy; Gerrit 2017

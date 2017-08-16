@@ -1,20 +1,15 @@
-#products-page
-  .container
-    %h1 Browse all products
-    %table.table.table-striped
-      %th Name
-      %th Description
-      %th Colour
-      %th
+.container-fluid
+  .products__container
+    %h1 Browse all our products
+    .row
       - @products.each do |product|
         - present(product) do |product|
-          %tr
-            %td= product.name
-            %td= product.truncated_description
-            %td= product.colour
-            %td
-              = link_to 'Details', product
-              = link_to 'Edit', edit_product_path(product)
-              = link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }
+          .col-xs-12.col-sm-6.col-lg-4
+            .product__card
+              = link_to image_tag(product.image_url, class: 'img-responsive'), product
+              .product__card-caption
+                = product.name
+              .product__card-price
+                = product.formatted_price
 
-    = link_to 'New Product', new_product_path, class: 'btn btn-primary'
+  = link_to 'New Product', new_product_path, class: 'btn btn-primary'

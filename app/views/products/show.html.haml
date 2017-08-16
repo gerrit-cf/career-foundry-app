@@ -1,17 +1,19 @@
-#products-page
-  - present(@product) do |product|
-    .container
-      %h1= product.name
-      .row
-        .col-xs-12.col-md-4
-          = image_tag(product.image_url, class: 'img-responsive', alt: '')
-          = number_to_currency(product.price, unit: '€')
-        .col-xs-12.col-md-8
-          %p
-            %strong Description
-            %br
-            = product.description
-          %p
-            %strong Colour
-            %br
-            = @product.colour
+- present(@product) do |product|
+  .container
+    %h1= product.name
+    .row
+      .col-xs-12.col-md-4
+        = image_tag(product.image_url, class: 'img-responsive', alt: '')
+        %p.product__price-tag
+          = product.formatted_price
+        %p
+          %strong Colour
+          %br
+          = product.colour
+        %p
+          = link_to 'Back', products_path, class: 'btn btn-default'
+          = link_to 'Edit', edit_product_path(product), class: 'btn btn-default'
+          = link_to 'Delete', product_path(product), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' }
+      .col-xs-12.col-md-8
+        .product__description
+          = product.description

@@ -1,4 +1,8 @@
 class ProductPresenter < ApplicationPresenter
+  def colour
+    super.presence || '-'
+  end
+
   def description
     super.presence || 'No description provided.'
   end
@@ -10,7 +14,7 @@ class ProductPresenter < ApplicationPresenter
     ''
   end
 
-  def truncated_description
-    description.truncate(100, separator: ' ')
+  def formatted_price
+    h.number_to_currency(price, unit: '€ ')
   end
 end
