@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  STATIC_PAGES = %w[about contact index]
+  STATIC_PAGES = %w[about contact]
 
   class StaticPageError < RuntimeError; end
 
@@ -21,6 +21,6 @@ class StaticPagesController < ApplicationController
   end
 
   def static_page_valid?
-    static_page.nil? || static_page.in?(STATIC_PAGES)
+    static_page.in?(STATIC_PAGES)
   end
 end
