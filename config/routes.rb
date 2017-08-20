@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'landing_page#index'
 
   resources :products
+  resources :orders, only: %i[index show create destroy]
 
   # This has to stay the last line in the file to not interfere with other
   # routes. This way, we can avoid the "static_pages" part of the route and turn
