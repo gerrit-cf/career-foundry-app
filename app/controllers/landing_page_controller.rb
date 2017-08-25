@@ -1,5 +1,5 @@
 class LandingPageController < ApplicationController
   def index
-    @product = Product.first
+    @products = Product.first(3)
   end
 end

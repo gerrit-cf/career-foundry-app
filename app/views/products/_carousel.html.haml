@@ -1,0 +1,18 @@
+#product-carousel.carousel.slide(data-ride='carousel')
+  %ol.carousel-indicators
+    - @products.each_with_index do |_, index|
+      %li(data-target='#carousel' data-slide-to=index class="#{index.zero? ? 'active' : ''}")
+
+  .carousel-inner(role='listbox')
+    - @products.each_with_index do |product, index|
+      - present(product) do |product|
+        .item(class="#{index.zero? ? 'active' : ''}")
+          = image_tag product.image_url
+          .carousel-caption
+            %h3= product.name
+            = product.formatted_price
+
+  %a.left.carousel-control(href='#product-carousel' role='button' data-slide='prev')
+    %span.glyphicon.glyphicon-chevron-left
+  %a.right.carousel-control(href='#product-carousel' role='button' data-slide='next')
+    %span.glyphicon.glyphicon-chevron-right
