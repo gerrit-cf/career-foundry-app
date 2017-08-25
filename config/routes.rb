@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   # This has to stay the last line in the file to not interfere with other
   # routes. This way, we can avoid the "static_pages" part of the route and turn
   # "/static_pages/about" into "/about"
-  get ':static_page_id', to: 'static_pages#index'
+  get ':static_page_id', to: 'static_pages#index', as: :static_page
 end

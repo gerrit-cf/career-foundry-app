@@ -7,7 +7,7 @@
     - @products.each_with_index do |product, index|
       - present(product) do |product|
         .item(class="#{index.zero? ? 'active' : ''}")
-          = image_tag product.image_url
+          = link_to image_tag(product.image_url), product_path(product)
           .carousel-caption
             %h3= product.name
             = product.formatted_price
