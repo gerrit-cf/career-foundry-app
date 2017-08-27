@@ -2,7 +2,12 @@ class ProductsController < ApplicationController
   before_action :load_product, only: %i[show edit update destroy]
 
   def index
-    @products = Product.all
+    @search_term = params[:search_term]
+    @products = if @search_term
+                  Product.name_like(@search_term)
+                else
+                  Product.all
+                end
   end
 
   def show

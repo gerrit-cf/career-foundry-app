@@ -9,6 +9,11 @@
       .page-title.navbar-brand Bike Berlin
 
     #navbar.collapse.navbar-collapse
+      %form.navbar-form.navbar-right(action=products_path)
+        .form-group
+          %input.form-control(type='text' name='search_term' placeholder='Product' value=@search_term)
+        %button.btn.btn-default(type='submit') Search
+
       %ul.nav.navbar-nav.navbar-right
         %li= link_to 'Home', root_path
         %li= link_to 'Products', products_path
