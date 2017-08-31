@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :products
   resources :orders, only: %i[index show create destroy]
 
+  post 'contact', to: 'static_pages#contact', as: :contact
+
   # This has to stay the last line in the file to not interfere with other
   # routes. This way, we can avoid the "static_pages" part of the route and turn
   # "/static_pages/about" into "/about"

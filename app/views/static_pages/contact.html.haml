@@ -1,8 +1,22 @@
 .container
   %h1 Contact us
-  %p
-    Bikes Berlin GmbH
-    %br
-    Some Road 42
-    %br
-    12345 Berlin
+  .row
+    .col-xs-12.col-md-5
+      %p
+        Bikes Berlin GmbH
+        %br
+        Some Road 42
+        %br
+        12345 Berlin
+    .col-xs-12.col-md-7
+      = form_with url: contact_path, local: true do |f|
+        .form-group
+          = f.label :name
+          = f.text_field :name, required: true, class: 'form-control'
+        .form-group
+          = f.label :email
+          = f.text_field :email, required: true, class: 'form-control'
+        .form-group
+          = f.label :message
+          = f.text_area :message, rows: 8, required: true, class: 'form-control'
+        = f.submit 'Send', class: 'btn btn-primary'
