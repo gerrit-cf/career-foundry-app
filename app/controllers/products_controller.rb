@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
       flash[:success] = 'Product was created.'
       redirect_to product_path(@product)
     else
-      flash[:error] = 'The product could not be created. Please check your inputs.'
+      flash.now[:error] = 'The product could not be created. Please check your inputs.'
       render :new
     end
   end
@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
       flash[:success] = 'Product was updated.'
       redirect_to product_path(@product)
     else
-      flash[:error] = 'The product could not be updated. Please check your inputs.'
+      flash.now[:error] = 'The product could not be updated. Please check your inputs.'
       render :edit
     end
   end
