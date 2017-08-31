@@ -27,5 +27,8 @@ module CareerFoundryApp
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Contact mails will go to this address
+    config.contact_mail_address = 'gerrit.seger@gmail.com'
   end
 end
