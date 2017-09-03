@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  def signed_in?
+    session[:user_id].present?
+  end
+
+  def current_user
+    @current_user ||= signed_in? ? User.find(session[:user_id]) : nil
+  end
+
   private
 
   def render_404
