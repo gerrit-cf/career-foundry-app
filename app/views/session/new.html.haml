@@ -11,6 +11,8 @@
           = f.label :password
           = f.password_field :password, required: true, class: 'form-control'
 
-        = f.submit 'Login', class: 'btn btn-primary'
+        = f.submit 'Sign in', class: 'btn btn-primary'
 
-        .text-right No account yet? Sign up.
+        .text-right
+          No account yet?
+          = link_to 'Sign up.', sign_up_path

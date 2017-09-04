@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'landing_page#index'
 
-  get  'sign_in',  to: 'sessions#new',     as: :login
-  post 'sign_in',  to: 'sessions#create'
-  get  'sign_out', to: 'sessions#destroy', as: :logout
+  get  'sign_up',  to: 'registration#new',   as: :sign_up
+  post 'sign_up',  to: 'registration#create'
+  get  'sign_in',  to: 'session#new',        as: :sign_in
+  post 'sign_in',  to: 'session#create'
+  get  'sign_out', to: 'session#destroy',    as: :sign_out
 
   resources :products
   resources :orders, only: %i[index show create destroy]
