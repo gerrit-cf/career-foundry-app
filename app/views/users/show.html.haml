@@ -1,0 +1,22 @@
+.container
+  .row
+    .col-xs-12.col-md-6
+      %h2 Your private information
+      %dl
+        %dt Name
+        %dd= [@user.first_name, @user.last_name].join(' ')
+        %dt Email
+        %dd= @user.email
+    .col-xs-12.col-md-6
+      %h2 Change your password
+      = form_with model: @user, url: user_path(@user), method: :put, local: true do |f|
+        .form-group
+          = f.label :password
+          = f.password_field :password, required: true, class: 'form-control'
+
+        .form-group
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation, required: true, class: 'form-control'
+          = f.errors :password_confirmation
+
+        = f.submit 'Update', class: 'btn btn-primary'
