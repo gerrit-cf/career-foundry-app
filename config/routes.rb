@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: %i[index show create destroy]
   resources :products
-  resources :users, only: %i[show update]
+  resource  :user, only: %i[show update]
 
   post 'contact', to: 'static_pages#contact', as: :contact
 

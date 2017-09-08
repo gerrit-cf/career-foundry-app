@@ -21,6 +21,6 @@
         %li= link_to 'Contact', static_page_path(:contact)
         - if signed_in?
           %li= link_to 'Logout', sign_out_path
-          %li= link_to 'My Profile', user_path(current_user)
+          %li= link_to 'My Profile', user_path
         - else
           %li= link_to 'Login', sign_in_path

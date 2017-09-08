@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate!, except: %i[index show]
-  before_action :load_product, only: %i[show edit update destroy]
+  before_action :set_product, only: %i[show edit update destroy]
 
   def index
     @search_term = params[:search_term]
@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :description, :image_url, :colour, :price)
   end
 
-  def load_product
+  def set_product
     @product = Product.find(params[:id])
   end
 end
