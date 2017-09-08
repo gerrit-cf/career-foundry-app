@@ -1,4 +1,6 @@
 class SessionController < AuthenticationController
+  skip_before_action :verify_unauthenticated, only: :destroy
+
   def new
     @user = User.new
   end
