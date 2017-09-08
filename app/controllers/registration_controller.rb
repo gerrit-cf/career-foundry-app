@@ -1,11 +1,12 @@
 class RegistrationController < AuthenticationController
   def new
+    @user = User.new
   end
 
   def create
-    user = User.new(registration_params)
+    @user = User.new(registration_params)
 
-    if user.save
+    if @user.save
       flash[:success] = 'You successfully signed up. Please sign in to continue.'
       redirect_to sign_in_path
     else

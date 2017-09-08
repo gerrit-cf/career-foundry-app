@@ -1,12 +1,13 @@
 class SessionController < AuthenticationController
   def new
+    @user = User.new
   end
 
   def create
-    user = User.find_by_email(session_params[:email])
+    @user = User.find_by_email(session_params[:email])
 
-    if user && user.authenticate(session_params[:password])
-      session[:user_id] = user.id
+    if @user && @user.authenticate(session_params[:password])
+      session[:user_id] = @user.id
       redirect_to root_path
     else
       flash.now[:error] = 'Username or password are invalid.'
