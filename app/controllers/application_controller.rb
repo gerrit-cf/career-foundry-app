@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     raise NotAuthenticatedException unless signed_in?
   end
 
+  def policy_scope(record)
+    Pundit.policy_scope(current_user, record)
+  end
+
   def render_404
     render file: Rails.root.join('public', '404'), layout: nil, status: 404
   end

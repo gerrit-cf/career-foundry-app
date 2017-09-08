@@ -38,6 +38,10 @@ class ApplicationPolicy
     Pundit.policy_scope!(user, record.class)
   end
 
+  def record_in_scope?
+    scope.where(id: record.id).exists?
+  end
+
   class Scope
     attr_reader :user, :scope
 
