@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :authenticate!, except: %i[index show]
   before_action :load_product, only: %i[show edit update destroy]
 
   def index
