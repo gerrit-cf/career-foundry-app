@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
 
   def index
+    authorize Product, :show?
     @search_term = params[:search_term]
     @products = if @search_term
                   Product.name_like(@search_term)
@@ -12,17 +13,21 @@ class ProductsController < ApplicationController
   end
 
   def show
+    authorize @product, :show?
   end
 
   def new
     @product = Product.new
+    authorize @product, :new?
   end
 
   def edit
+    authorize @product, :edit?
   end
 
   def create
     @product = Product.new(permitted_params)
+    authorize @product, :create?
 
     if @product.save
       flash[:success] = 'Product was created.'
@@ -35,6 +40,7 @@ class ProductsController < ApplicationController
 
   def update
     @product.assign_attributes(permitted_params)
+    authorize @product, :update?
 
     if @product.save
       flash[:success] = 'Product was updated.'
@@ -46,6 +52,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+    authorize @product, :destroy?
     @product.destroy!
     flash[:success] = "Product '#{@product.name}' deleted."
     redirect_to products_path

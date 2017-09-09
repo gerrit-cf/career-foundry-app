@@ -3,7 +3,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  after_action :verify_authorized
+
   rescue_from NotAuthenticatedException, with: :render_404
+  rescue_from Pundit::NotAuthorizedError, with: :render_403
 
   helper_method :signed_in?, :current_user
 
@@ -23,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def policy_scope(record)
     Pundit.policy_scope(current_user, record)
+  end
+
+  def render_403
+    render file: Rails.root.join('public', '403'), layout: nil, status: 403
   end
 
   def render_404

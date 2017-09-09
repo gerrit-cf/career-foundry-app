@@ -1,4 +1,6 @@
 class AuthenticationController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :verify_unauthenticated
 
   private

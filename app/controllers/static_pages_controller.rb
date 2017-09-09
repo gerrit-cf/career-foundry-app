@@ -3,6 +3,8 @@ class StaticPagesController < ApplicationController
 
   rescue_from StaticPageException, with: :render_404
 
+  skip_after_action :verify_authorized
+
   before_action :set_and_verify_static_page!, only: :index
 
   def index

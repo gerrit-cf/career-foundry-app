@@ -3,10 +3,12 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
+    authorize @user, :show?
   end
 
   def update
     @user.assign_attributes(user_params)
+    authorize @user, :update?
 
     if @user.save
       flash[:success] = 'You successfully updated your information.'
