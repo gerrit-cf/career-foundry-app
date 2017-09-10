@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  include Reviewable
+
   has_many :orders
 
   validates :name, presence: true
