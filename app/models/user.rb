@@ -5,4 +5,8 @@ class User < ApplicationRecord
   has_many :reviews
 
   validates :email, presence: true, uniqueness: true
+
+  def to_s
+    [first_name, last_name].join(' ')
+  end
 end

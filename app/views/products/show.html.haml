@@ -17,3 +17,28 @@
       .col-xs-12.col-md-8
         .product__description
           = product.description
+
+          %hr
+          .product__reviews
+            %h3 What our customers say
+            - if @reviews.any?
+              - @reviews.each do |review|
+                - present(review) do |review|
+                  %strong= review.headline
+                  %p= review.comment
+            - else
+              There are no reviews yet.
+
+          - if signed_in?
+            %hr
+            %h4 Submit a review
+            = form_for [@product, @product.reviews.new] do |f|
+              .form-group
+                = f.label :comment
+                = f.text_area :comment, class: 'form-control'
+
+              .form-group
+                = f.label :rating
+                = f.select :rating, 1..5, class: 'form-control'
+
+              = f.submit 'Create a review', class: 'btn btn-primary'

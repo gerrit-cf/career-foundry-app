@@ -2,7 +2,9 @@ class ReviewsController < ApplicationController
   PERMITTED_REVIEWABLE_KLASS_NAMES = %w[product].freeze
 
   def create
-    review = reviewable.reviews.build(review_params)
+    review = reviewable.reviews.build(
+      review_params.merge(user: current_user)
+    )
     authorize review, :create?
     
     if review.save
