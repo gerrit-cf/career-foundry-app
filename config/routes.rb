@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get  'sign_out', to: 'session#destroy',    as: :sign_out
 
   resources :orders, only: %i[index show create destroy]
-  resources :products
+  resources :products do
+    resources :reviews, only: %i[create destroy]
+  end
   resource  :user, only: %i[show update]
 
   post 'contact', to: 'static_pages#contact', as: :contact
