@@ -1,7 +1,5 @@
 {
   "name": "career_foundry_app",
   "private": true,
-  "dependencies": {
-    "raty-js": "2.7.1"
-  }
+  "dependencies": {}
 }
