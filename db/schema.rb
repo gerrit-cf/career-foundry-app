@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20170910174338) do
     t.string "comment"
     t.integer "user_id", null: false
     t.integer "reviewable_id", null: false
-    t.integer "reviewable_type", null: false
+    t.string "reviewable_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reviewable_id"], name: "index_reviews_on_reviewable_id"
