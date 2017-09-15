@@ -24,8 +24,10 @@
             - if @reviews.any?
               - @reviews.each do |review|
                 - present(review) do |review|
-                  %strong= review.headline
-                  %p= review.comment
+                  .product__reviews-review
+                    %strong= review.headline
+                    .product__reviews-rating{ data: { score: review.rating } }
+                    %p= review.comment
             - else
               There are no reviews yet.
 
@@ -35,10 +37,10 @@
             = form_for [@product, @product.reviews.new] do |f|
               .form-group
                 = f.label :comment
-                = f.text_area :comment, class: 'form-control'
+                = f.text_area :comment, value: params[:review].try(:[], :comment), rows: 6, class: 'form-control'
 
               .form-group
                 = f.label :rating
-                = f.select :rating, 1..5, class: 'form-control'
+                .rating
 
               = f.submit 'Create a review', class: 'btn btn-primary'

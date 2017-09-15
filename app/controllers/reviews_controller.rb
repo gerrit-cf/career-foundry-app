@@ -11,8 +11,8 @@ class ReviewsController < ApplicationController
       flash[:success] = 'Successfully created your comment. Thanks for your feedback.'
       redirect_to polymorphic_path(reviewable)
     else
-      flash[:error] = 'Error creating review. Please check your inputs.'
-      redirect_back fallback_location: polymorphic_path(reviewable)
+      flash[:error] = 'Error creating review. Please choose a rating.'
+      redirect_to polymorphic_path(reviewable, review: review_params)
     end
   end
 
