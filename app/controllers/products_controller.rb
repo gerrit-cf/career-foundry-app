@@ -13,25 +13,27 @@ class ProductsController < ApplicationController
   end
 
   def show
-    authorize @product, :show?
+    authorize product, :show?
+
+    @reviews = product.reviews.first(5)
   end
 
   def new
     @product = Product.new
-    authorize @product, :new?
+    authorize product, :new?
   end
 
   def edit
-    authorize @product, :edit?
+    authorize product, :edit?
   end
 
   def create
     @product = Product.new(permitted_params)
     authorize @product, :create?
 
-    if @product.save
+    if product.save
       flash[:success] = 'Product was created.'
-      redirect_to product_path(@product)
+      redirect_to product_path(product)
     else
       flash.now[:error] = 'The product could not be created. Please check your inputs.'
       render :new
@@ -39,12 +41,12 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.assign_attributes(permitted_params)
-    authorize @product, :update?
+    product.assign_attributes(permitted_params)
+    authorize product, :update?
 
-    if @product.save
+    if product.save
       flash[:success] = 'Product was updated.'
-      redirect_to product_path(@product)
+      redirect_to product_path(product)
     else
       flash.now[:error] = 'The product could not be updated. Please check your inputs.'
       render :edit
@@ -52,13 +54,15 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    authorize @product, :destroy?
-    @product.destroy!
-    flash[:success] = "Product '#{@product.name}' deleted."
+    authorize product, :destroy?
+    product.destroy!
+    flash[:success] = "Product '#{product.name}' deleted."
     redirect_to products_path
   end
 
   private
+
+  attr_reader :product
 
   def permitted_params
     params.require(:product).permit(:name, :description, :image_url, :colour, :price)
