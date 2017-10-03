@@ -5,6 +5,7 @@ class ReviewsController < ApplicationController
     review = reviewable.reviews.build(
       review_params.merge(user: current_user)
     )
+
     authorize review, :create?
     
     if review.save
@@ -18,8 +19,13 @@ class ReviewsController < ApplicationController
 
   def destroy
     review = policy_scope(Review).find(params[:id])
+
     authorize review, :destroy?
+
     review.destroy!
+
+    flash[:success] = 'Review was deleted.'
+    redirect_to polymorphic_path(reviewable)
   end
   
   private
