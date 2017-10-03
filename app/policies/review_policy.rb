@@ -1,6 +1,6 @@
 class ReviewPolicy < ApplicationPolicy
   def manage?
-    record_in_scope?
+    user.admin?
   end
 
   def index?
@@ -17,7 +17,8 @@ class ReviewPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.where(user: user)
+      return scope.all if user.admin?
+      scope.none
     end
   end
 end

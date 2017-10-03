@@ -3,3 +3,6 @@
     %strong= review.headline
     .reviews__rating{ data: { score: review.rating } }
     %p= review.comment
+
+    - if signed_in? && current_user.admin?
+      = link_to 'Delete', polymorphic_path([reviewable, review]), method: :delete

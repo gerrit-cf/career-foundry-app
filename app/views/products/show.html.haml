@@ -22,7 +22,7 @@
           .product__reviews
             %h3 What our customers say
             - if @reviews.any?
-              = render partial: 'reviews/review', collection: @reviews
+              = render partial: 'reviews/review', collection: @reviews, locals: { reviewable: @product }
 
               = link_to 'Show all reviews', product_reviews_path(@product)
             - else

@@ -1,6 +1,8 @@
 class ReviewsController < ApplicationController
   PERMITTED_REVIEWABLE_KLASS_NAMES = %w[product].freeze
 
+  before_action :authenticate!, except: :index
+
   def index
     authorize Review, :index?
 

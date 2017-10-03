@@ -4,7 +4,7 @@
     .small= link_to @reviewable, polymorphic_path(@reviewable)
 
   - if @reviews.any?
-    = render partial: 'reviews/review', collection: @reviews
+    = render partial: 'reviews/review', collection: @reviews, locals: { reviewable: @reviewable }
     = will_paginate @reviews
   - else
     There are no reviews yet.
