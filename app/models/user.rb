@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
 
+  def admin?
+    role == 'admin'
+  end
+
   def to_s
     [first_name, last_name].join(' ')
   end
