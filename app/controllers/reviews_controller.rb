@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
   def index
     authorize Review, :index?
 
-    @reviews = reviewable.reviews
+    @reviews = reviewable.reviews.paginate(page: params[:page])
 
     render 'reviews/index'
   end

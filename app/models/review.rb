@@ -7,4 +7,6 @@ class Review < ApplicationRecord
 
   scope :rating_asc,  -> { order('rating ASC') }
   scope :rating_desc, -> { order('rating DESC') }
+
+  self.per_page = 5
 end
