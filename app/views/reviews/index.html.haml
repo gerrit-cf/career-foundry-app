@@ -1,0 +1,9 @@
+.container
+  %h1
+    Reviews
+    .small= link_to @reviewable, polymorphic_path(@reviewable)
+
+  - if @reviews.any?
+    = render partial: 'reviews/review', collection: @reviews
+  - else
+    There are no reviews yet.

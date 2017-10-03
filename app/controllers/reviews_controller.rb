@@ -1,6 +1,14 @@
 class ReviewsController < ApplicationController
   PERMITTED_REVIEWABLE_KLASS_NAMES = %w[product].freeze
 
+  def index
+    authorize Review, :index?
+
+    @reviews = reviewable.reviews
+
+    render 'reviews/index'
+  end
+
   def create
     review = reviewable.reviews.build(
       review_params.merge(user: current_user)

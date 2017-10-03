@@ -3,6 +3,10 @@ class ReviewPolicy < ApplicationPolicy
     record_in_scope?
   end
 
+  def index?
+    true
+  end
+
   def create?
     true
   end

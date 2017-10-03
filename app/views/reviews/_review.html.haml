@@ -1,0 +1,5 @@
+- present(review) do |review|
+  .reviews__review
+    %strong= review.headline
+    .reviews__rating{ data: { score: review.rating } }
+    %p= review.comment

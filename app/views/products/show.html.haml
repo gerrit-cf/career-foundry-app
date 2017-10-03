@@ -22,12 +22,9 @@
           .product__reviews
             %h3 What our customers say
             - if @reviews.any?
-              - @reviews.each do |review|
-                - present(review) do |review|
-                  .product__reviews-review
-                    %strong= review.headline
-                    .product__reviews-rating{ data: { score: review.rating } }
-                    %p= review.comment
+              = render partial: 'reviews/review', collection: @reviews
+
+              = link_to 'Show all reviews', product_reviews_path(@product)
             - else
               There are no reviews yet.
 
