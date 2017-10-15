@@ -1,20 +1,24 @@
 var initializeRaty = function() {
-  $('.reviews__rating').raty({
-    starHalf: '<%= asset_path 'raty/star-half.png' %>',
-    starOff: '<%= asset_path 'raty/star-off.png' %>',
-    starOn: '<%= asset_path 'raty/star-on.png' %>',
-    readOnly: true,
-    score: function() {
-      return $(this).attr('data-score')
-    }
-  });
+  $('.reviews__rating')
+    .raty('destroy')
+    .raty({
+      starHalf: '<%= asset_path 'raty/star-half.png' %>',
+      starOff: '<%= asset_path 'raty/star-off.png' %>',
+      starOn: '<%= asset_path 'raty/star-on.png' %>',
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score')
+      }
+    });
 
-  $('.rating').raty({
-    starHalf: '<%= asset_path 'raty/star-half.png' %>',
-    starOff: '<%= asset_path 'raty/star-off.png' %>',
-    starOn: '<%= asset_path 'raty/star-on.png' %>',
-    scoreName: 'review[rating]'
-  });
+  $('.rating')
+    .raty('destroy')
+    .raty({
+      starHalf: '<%= asset_path 'raty/star-half.png' %>',
+      starOff: '<%= asset_path 'raty/star-off.png' %>',
+      starOn: '<%= asset_path 'raty/star-on.png' %>',
+      scoreName: 'review[rating]'
+    });
 }
 
 $(document).on('turbolinks:load', initializeRaty)
