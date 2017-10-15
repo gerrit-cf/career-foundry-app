@@ -7,6 +7,7 @@ class RegistrationController < AuthenticationController
     @user = User.new(registration_params)
 
     if @user.save
+      RegistrationMailer.welcome(@user).deliver_now
       flash[:success] = 'You successfully signed up. Please sign in to continue.'
       redirect_to sign_in_path
     else
