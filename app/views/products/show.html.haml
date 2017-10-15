@@ -1,6 +1,9 @@
 - present(@product) do |product|
   .container
-    %h1= product.name
+    %h1
+      = product.name
+      - if product.reviews.any?
+        .reviews__rating{ data: { score: product.average_rating } }
     .row
       .col-xs-12.col-md-4
         = image_tag(product.image_url, class: 'img-responsive', alt: '')
@@ -24,16 +27,16 @@
           .product__reviews
             %h3 What our customers say
             - if @reviews.any?
-              = render partial: 'reviews/review', collection: @reviews, locals: { reviewable: @product }
+              = render partial: 'reviews/review', collection: @reviews, locals: { reviewable: product }
 
-              = link_to 'Show all reviews', product_reviews_path(@product)
+              = link_to 'Show all reviews', product_reviews_path(product)
             - else
               There are no reviews yet.
 
           - if signed_in?
             %hr
             %h4 Submit a review
-            = form_for [@product, @review] do |f|
+            = form_for [product, @review] do |f|
               .form-group
                 = f.label :comment
                 = f.text_area :comment, rows: 6, class: 'form-control'

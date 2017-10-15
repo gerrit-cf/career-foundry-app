@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
     authorize product, :show?
 
     @reviews = product.reviews.first(5)
-    @review = product.reviews.new(review_params)
+    @review = Review.new(review_params)
   end
 
   def new
