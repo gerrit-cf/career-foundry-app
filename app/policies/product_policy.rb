@@ -1,4 +1,8 @@
 class ProductPolicy < ApplicationPolicy
+  def manage?
+    user.admin?
+  end
+
   def index?
     true
   end
@@ -12,7 +16,7 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def create?
-    true # admin?
+    manage?
   end
 
   def edit?
@@ -20,10 +24,10 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def update?
-    true # admin?
+    manage?
   end
 
   def destroy?
-    true # admin?
+    manage?
   end
 end
