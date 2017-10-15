@@ -31,10 +31,10 @@
           - if signed_in?
             %hr
             %h4 Submit a review
-            = form_for [@product, @product.reviews.new] do |f|
+            = form_for [@product, @review] do |f|
               .form-group
                 = f.label :comment
-                = f.text_area :comment, value: params[:review].try(:[], :comment), rows: 6, class: 'form-control'
+                = f.text_area :comment, rows: 6, class: 'form-control'
 
               .form-group
                 = f.label :rating

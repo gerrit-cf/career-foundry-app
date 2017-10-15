@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
     authorize product, :show?
 
     @reviews = product.reviews.first(5)
+    @review = product.reviews.new(review_params)
   end
 
   def new
@@ -66,6 +67,12 @@ class ProductsController < ApplicationController
 
   def permitted_params
     params.require(:product).permit(:name, :description, :image_url, :colour, :price)
+  end
+
+  def review_params
+    return {} unless params[:review]
+
+    params.require(:review).permit(:comment)
   end
 
   def set_product
