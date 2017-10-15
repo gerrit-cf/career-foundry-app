@@ -23,7 +23,7 @@ class ProductPolicy < ApplicationPolicy
     true # admin?
   end
 
-  def destroy
+  def destroy?
     true # admin?
   end
 end

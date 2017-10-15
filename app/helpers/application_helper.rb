@@ -10,4 +10,11 @@ module ApplicationHelper
     type = type.eql?('error') ? 'danger' : type
     "alert alert-#{type}"
   end
+
+  def authorize(record, query)
+    return false unless signed_in?
+    Pundit.authorize(current_user, record, query)
+  rescue Pundit::NotAuthorizedError
+    false
+  end
 end

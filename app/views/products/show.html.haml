@@ -12,8 +12,10 @@
           = product.colour
         %p
           = link_to 'Back', products_path, class: 'btn btn-default'
-          = link_to 'Edit', edit_product_path(product), class: 'btn btn-default'
-          = link_to 'Delete', product_path(product), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' }
+          - if authorize @product, :edit?
+            = link_to 'Edit', edit_product_path(product), class: 'btn btn-default'
+          - if authorize @product, :destroy?
+            = link_to 'Delete', product_path(product), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' }
       .col-xs-12.col-md-8
         .product__description
           = product.description

@@ -6,4 +6,5 @@
         .col-xs-12.col-sm-6.col-lg-4
           = render partial: 'products/card', locals: { product: product }
 
-  = link_to 'New Product', new_product_path, class: 'btn btn-primary'
+  - if authorize Product, :new?
+    = link_to 'New Product', new_product_path, class: 'btn btn-primary'
