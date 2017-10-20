@@ -10,8 +10,8 @@ class ProductPresenter < ApplicationPresenter
   def image_url
     # External ressources only for now.
     # We do not want an invalid asset to break our app.
-    return super if external_url?(super)
-    ''
+    return '' if super.nil? || !external_url(super)
+    super
   end
 
   def formatted_price

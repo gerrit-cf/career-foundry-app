@@ -20,7 +20,7 @@ class RegistrationController < AuthenticationController
 
   def registration_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation).tap do |parameters|
-      parameters[:email].downcase!
+      parameters[:email].downcase! if parameters[:email].present?
     end
   end
 end

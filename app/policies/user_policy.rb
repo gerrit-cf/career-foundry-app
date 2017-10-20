@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def manage?
-    user.admin? || record_in_scope?
+    record_in_scope?
   end
 
   def show?
