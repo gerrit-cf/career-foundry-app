@@ -29,13 +29,14 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'pundit'
 gem 'will_paginate'
+gem 'stripe'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
   gem 'pry-rails'
-  # Use sqlite3 as the database for Active Record
+  gem 'dotenv-rails'
 end
 
 group :development do
