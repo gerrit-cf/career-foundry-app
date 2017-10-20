@@ -25,6 +25,8 @@ class SessionController < AuthenticationController
   private
 
   def session_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password).tap do |parameters|
+      parameters[:email].downcase!
+    end
   end
 end

@@ -4,7 +4,10 @@ class ReviewPresenter < ApplicationPresenter
   end
 
   def headline
-    format('%s <i>%s ago</i>', user, time_ago).html_safe
+    [
+      user,
+      format('<i>%s ago</i>', time_ago).html_safe
+    ].join('')
   end
 
   def time_ago

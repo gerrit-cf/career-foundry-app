@@ -19,6 +19,8 @@ class RegistrationController < AuthenticationController
   private
 
   def registration_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation).tap do |parameters|
+      parameters[:email].downcase!
+    end
   end
 end
