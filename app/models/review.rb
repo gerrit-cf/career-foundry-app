@@ -2,7 +2,6 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :reviewable, polymorphic: true
 
-  validates :user, :reviewable, presence: true
   validates :rating, numericality: { only_integer: true }, inclusion: 1..5
 
   scope :rating_asc,  -> { order('rating ASC') }
