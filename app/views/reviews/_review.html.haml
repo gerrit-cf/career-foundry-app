@@ -1,6 +1,7 @@
 - present(review) do |review|
   .reviews__review
-    %strong= review.headline
+    %strong= review.user
+    %i= "#{review.time_ago} ago"
     .reviews__rating{ data: { score: review.rating } }
     %p= review.comment
 
