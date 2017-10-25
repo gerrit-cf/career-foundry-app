@@ -20,6 +20,8 @@
           - if authorize @product, :destroy?
             = link_to 'Delete', product_path(product), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' }
       .col-xs-12.col-md-8
+        .product_checkout
+          = render 'shared/stripe_checkout_button', product: product, user: current_user
         .product__description
           = product.description
 
