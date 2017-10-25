@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  after_action :store_redirect_path, unless: :authentication_controller?
   after_action :verify_authorized
 
   rescue_from NotAuthenticatedException, with: :render_404
@@ -26,6 +27,14 @@ class ApplicationController < ActionController::Base
 
   def policy_scope(record)
     Pundit.policy_scope(current_user, record)
+  end
+
+  def authentication_controller?
+    is_a?(AuthenticationController)
+  end
+
+  def store_redirect_path
+    session[:redirect_path] = request.fullpath
   end
 
   def render_403

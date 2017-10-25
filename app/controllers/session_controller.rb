@@ -10,7 +10,7 @@ class SessionController < AuthenticationController
 
     if @user && @user.authenticate(session_params[:password])
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to redirect_path || root_path
     else
       flash.now[:error] = 'Username or password are invalid.'
       render :new
@@ -28,5 +28,9 @@ class SessionController < AuthenticationController
     params.require(:user).permit(:email, :password).tap do |parameters|
       parameters[:email].downcase! if parameters[:email].present?
     end
+  end
+
+  def redirect_path
+    session[:redirect_path]
   end
 end
