@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get  'sign_out', to: 'session#destroy',    as: :sign_out
 
   resources :orders, only: %i[index show create destroy]
+  resources :payments, only: :create
   resources :products do
     resources :reviews, only: %i[index create destroy]
   end
