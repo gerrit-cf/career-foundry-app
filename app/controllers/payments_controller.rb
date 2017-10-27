@@ -28,8 +28,6 @@ class PaymentsController < ApplicationController
   end
 
   def error_message
-    'Your payment could not be processed. '.tap do |message|
-      message << charge.error_messages.join(' ')
-    end
+    charge.error_messages.collect(&:message)
   end
 end

@@ -8,6 +8,10 @@ class Product < ApplicationRecord
 
   scope :name_like, ->(name) { where('name ilike ?', "%#{name}%") }
 
+  def price_in_cents
+    (price * 100).floor
+  end
+
   def to_s
     name
   end

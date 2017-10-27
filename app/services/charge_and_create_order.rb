@@ -20,7 +20,7 @@ class ChargeAndCreateOrder
 
   attr_reader :user, :product, :token
 
-  delegate :description, :price, to: :product
+  delegate :description, :price, :price_in_cents, to: :product
 
   def create_order
     user.orders.create(
@@ -30,17 +30,17 @@ class ChargeAndCreateOrder
   end
 
   def charge
+    add_error :not_billed, 'Your payment could not be processed.' unless stripe_charge.paid?
+  rescue Stripe::CardError
+    add_error :card_declined, 'Your card was declined.'
+  end
+
+  def stripe_charge
     Stripe::Charge.create(
-      amount: total,
+      amount: price_in_cents,
       currency: 'eur',
       description: description,
       source: token
     )
-  rescue Stripe::CardError
-    add_error :card_error, 'Your card was declined.'
-  end
-
-  def total
-    (price * 100).floor
   end
 end
