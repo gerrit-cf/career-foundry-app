@@ -6,7 +6,7 @@
         .reviews__rating{ data: { score: product.average_rating } }
     .row
       .col-xs-12.col-md-4
-        = image_tag(product.image_url, class: 'img-responsive', alt: '')
+        = image_tag(product.image_url, id: 'product-image', class: 'img-responsive', alt: '')
         %p.product__price-tag
           = product.formatted_price
         %p

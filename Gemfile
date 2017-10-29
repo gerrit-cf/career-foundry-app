@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pundit'
 gem 'will_paginate'
 gem 'stripe'
+gem 'elevatezoom-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
