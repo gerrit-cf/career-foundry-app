@@ -31,10 +31,10 @@
           = product.description
 
           %hr
+          %h3 What our customers say
           .product__reviews
-            %h3 What our customers say
             - if @reviews.any?
-              = render partial: 'reviews/review', collection: @reviews, locals: { reviewable: product }
+              = render @reviews
 
               = link_to 'Show all reviews', product_reviews_path(product)
             - else
@@ -43,13 +43,14 @@
           - if signed_in?
             %hr
             %h4 Submit a review
-            = form_for [product, @review] do |f|
-              .form-group
-                = f.label :comment
-                = f.text_area :comment, rows: 6, class: 'form-control'
+            #product-reviews-form
+              = form_for [product, @review], remote: true do |f|
+                .form-group
+                  = f.label :comment
+                  = f.text_area :comment, rows: 6, class: 'form-control'
 
-              .form-group
-                = f.label :rating
-                .rating
+                .form-group
+                  = f.label :rating
+                  .rating
 
-              = f.submit 'Create a review', class: 'btn btn-primary'
+                = f.submit 'Create a review', class: 'btn btn-primary'

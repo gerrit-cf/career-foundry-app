@@ -6,4 +6,4 @@
     %p= review.comment
 
     - if signed_in? && current_user.admin?
-      = link_to 'Delete', polymorphic_path([reviewable, review]), method: :delete
+      = link_to 'Delete', polymorphic_path([review.reviewable, review]), method: :delete

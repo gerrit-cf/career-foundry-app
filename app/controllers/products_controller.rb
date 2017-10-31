@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
   def show
     authorize product, :show?
 
-    @reviews = product.reviews.first(5)
+    @reviews = product.reviews.created_at_desc.first(5)
     @review = Review.new(review_params)
   end
 
