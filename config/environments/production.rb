@@ -52,10 +52,18 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  dalli_config = {
+    username: ENV['MEMCACHIER_USERNAME'],
+    password: ENV['MEMCACHIER_PASSWORD'],
+    failover: true,
+    socket_timeout: 1.5,
+    socket_failure_delay: 0.2,
+    down_retry_delay: 60
+  }
+  config.cache_store = :dalli_store, (ENV['MEMCACHIER_SERVERS'] || '').split(','), dalli_config
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -90,7 +98,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
