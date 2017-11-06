@@ -1,1 +1,2 @@
-= render 'products/carousel', collection: @products
+- cache @products do
+  = render 'products/carousel', collection: @products

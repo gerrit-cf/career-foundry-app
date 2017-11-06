@@ -30,15 +30,16 @@
         .product__description
           = product.description
 
-          %hr
-          %h3 What our customers say
-          .product__reviews
-            - if @reviews.any?
-              = render @reviews
+          - cache @reviews do
+            %hr
+            %h3 What our customers say
+            .product__reviews
+              - if @reviews.any?
+                = render @reviews
 
-              = link_to 'Show all reviews', product_reviews_path(product)
-            - else
-              There are no reviews yet.
+                = link_to 'Show all reviews', product_reviews_path(product)
+              - else
+                There are no reviews yet.
 
           - if signed_in?
             %hr
