@@ -44,4 +44,8 @@ class ApplicationController < ActionController::Base
   def render_404
     render file: Rails.root.join('public', '404'), layout: nil, status: 404
   end
+
+  def redis(&block)
+    Redis.store(&block)
+  end
 end

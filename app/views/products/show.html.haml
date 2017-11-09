@@ -13,6 +13,10 @@
           %strong Colour
           %br
           = product.colour
+          %p
+            This product has been viewed
+            = @view_count
+            times
         %p
           = link_to 'Back', products_path, class: 'btn btn-default'
           - if authorize @product, :edit?

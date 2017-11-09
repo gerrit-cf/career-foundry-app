@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate!, except: %i[index show]
   before_action :set_product, only: %i[show edit update destroy]
+  before_action :update_view_count, only: :show
 
   def index
     authorize Product, :show?
@@ -17,6 +18,7 @@ class ProductsController < ApplicationController
 
     @reviews = product.reviews.created_at_desc.first(5)
     @review = Review.new(review_params)
+    @view_count = view_count
   end
 
   def new
@@ -77,5 +79,13 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:id])
+  end
+
+  def view_count
+    redis.hget(:product_view_count, product.id) || 0
+  end
+
+  def update_view_count
+    redis.hincrby(:product_view_count, product.id, 1)
   end
 end
