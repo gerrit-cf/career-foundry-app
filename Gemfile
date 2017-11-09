@@ -32,6 +32,7 @@ gem 'will_paginate'
 gem 'stripe'
 gem 'elevatezoom-rails'
 gem 'dalli'
+gem 'redis-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
