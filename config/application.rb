@@ -33,5 +33,8 @@ module CareerFoundryApp
 
     # Contact mails will go to this address
     config.contact_mail_address = 'gerrit.seger@gmail.com'
+
+    # This is overwritten by production.rb and development.rb and has absolutely no effect
+    config.cache_store = :redis_store, "#{ENV['REDIS_URL']}0/cache"
   end
 end
