@@ -21,6 +21,7 @@ class ReviewsController < ApplicationController
     respond_to do |format|
 
       if @review.save
+        ActionCable.server.broadcast 'product_channel', review: @review
         format.html { handle_create_success }
         format.js
       else
