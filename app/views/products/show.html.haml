@@ -34,18 +34,17 @@
         .product__description
           = product.description
 
-          - cache @reviews do
-            %hr
-            %h3 What our customers say
-            .alert.alert-info(style='display:none' role='alert')
-              A new comment was posted!
-            .product__reviews
-              - if @reviews.any?
-                = render @reviews
+          %hr
+          %h3 What our customers say
+          .alert.alert-info(style='display:none' role='alert')
+            A new comment was posted!
+          .product__reviews
+            - if @reviews.any?
+              = render @reviews
 
-                = link_to 'Show all reviews', product_reviews_path(product)
-              - else
-                There are no reviews yet.
+              = link_to 'Show all reviews', product_reviews_path(product)
+            - else
+              There are no reviews yet.
 
           - if signed_in?
             %hr
