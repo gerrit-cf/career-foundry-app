@@ -3,7 +3,7 @@
     %h1
       = product.name
       - if product.reviews.any?
-        .reviews__rating{ data: { score: product.average_rating } }
+        #average-rating.reviews__rating{ data: { score: product.average_rating } }
     .row
       .col-xs-12.col-md-4
         = image_tag(product.image_url, id: 'product-image', class: 'img-responsive', alt: '')
