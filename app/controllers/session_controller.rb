@@ -18,6 +18,7 @@ class SessionController < AuthenticationController
   end
 
   def destroy
+    disconnect_action_cable
     session[:user_id] = nil
     redirect_to root_path
   end
@@ -32,5 +33,13 @@ class SessionController < AuthenticationController
 
   def redirect_path
     session[:redirect_path]
+  end
+
+  def disconnect_action_cable
+    ActionCable
+      .server
+      .remote_connections
+      .where(current_user: current_user)
+      .disconnect
   end
 end
