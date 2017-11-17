@@ -13,11 +13,11 @@ App.product = App.cable.subscriptions.create('ProductChannel', {
   },
 
   listenToComments: function() {
-    const productId = $('[data-product-id]').data('product-id')
-    return this.perform('listen', { 'product-id': productId })
+    var productId = $('[data-product-id]').data('product-id');
+    return this.perform('listen', { 'product-id': productId });
   }
 });
 
-$(document).on('turbolinks:load', () => {
-  App.product.listenToComments()
+$(document).on('turbolinks:load', function() {
+  App.product.listenToComments();
 })
