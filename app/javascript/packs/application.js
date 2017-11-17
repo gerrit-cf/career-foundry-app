@@ -7,13 +7,8 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-// @jsx h
-import { h, render } from 'preact'
+import ProductReviews, { initializeProductReviews } from './components/ProductReviews'
 
 document.addEventListener('turbolinks:load', () => {
-  const reviewsElement = document.getElementById('product-reviews')
-
-  if (!reviewsElement) return
-
-  render(<div>Works</div>, reviewsElement)
+  initializeProductReviews()
 })
