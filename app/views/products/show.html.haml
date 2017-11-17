@@ -38,6 +38,7 @@
             %hr
             %h3 What our customers say
             .product__reviews
+              #product-reviews
               - if @reviews.any?
                 = render @reviews
 

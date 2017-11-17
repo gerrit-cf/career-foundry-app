@@ -7,4 +7,13 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
+// @jsx h
+import { h, render } from 'preact'
+
+document.addEventListener('turbolinks:load', () => {
+  const reviewsElement = document.getElementById('product-reviews')
+
+  if (!reviewsElement) return
+
+  render(<div>Works</div>, reviewsElement)
+})
