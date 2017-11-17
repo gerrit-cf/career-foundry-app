@@ -33,6 +33,7 @@ gem 'stripe'
 gem 'elevatezoom-rails'
 gem 'dalli'
 gem 'redis-rails'
+gem 'webpacker'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
