@@ -37,8 +37,6 @@
 
             %hr
             %h3 What our customers say
-            .alert.alert-info(style='display:none' role='alert')
-              A new comment was posted!
             .product__reviews
               - if @reviews.any?
                 = render @reviews

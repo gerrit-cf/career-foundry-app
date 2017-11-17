@@ -19,11 +19,10 @@ class ReviewsController < ApplicationController
     authorize @review, :create?
 
     respond_to do |format|
-
       if @review.save
         ProductChannel.broadcast_to reviewable.id, review: @review
+
         format.html { handle_create_success }
-        format.js
       else
         format.html { handle_create_error }
       end

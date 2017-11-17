@@ -1,6 +1,0 @@
-<% present(@review.reviewable) do |reviewable| %>
-  $('.product__reviews').prepend("<%= j render @review %>")
-  $('#average-rating').attr('data-score', "<%= reviewable.average_rating %>")
-  $(document).trigger('refreshRaty')
-  $('#product-reviews-form').text('Thank your for submitting a review.')
-<% end %>
