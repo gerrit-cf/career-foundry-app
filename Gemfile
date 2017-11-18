@@ -34,6 +34,8 @@ gem 'elevatezoom-rails'
 gem 'dalli'
 gem 'redis-rails'
 gem 'webpacker'
+gem 'gon'
+gem 'jsonapi-serializers'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
