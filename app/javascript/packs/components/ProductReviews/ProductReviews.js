@@ -8,19 +8,11 @@ export const initializeProductReviews = () => {
   render(<ProductReviews />, reviewsElement, reviewsElement.lastChild)
 }
 
+const getReviews = () => gon['product_reviews'].data.map(review => review.attributes)
+
 class ProductReviews extends Component {
   state = {
-    reviews: [{
-      name: 'Gerrit',
-      comment: 'I approve. 10 out of 10.',
-      rating: 3
-    }]
-  }
-
-  componentDidMount = () => this.fetchInitialReviews()
-
-  fetchInitialReviews () {
-    // TODO: Ajax call to get five initial reviews
+    reviews: getReviews()
   }
 
   renderReviews = () => {
@@ -28,14 +20,15 @@ class ProductReviews extends Component {
 
     return reviews.map((review) => (
       <div className='reviews__review'>
-        <strong>{review.name}</strong>
+        <strong>{review.name} </strong>
+        <i>{review.timestamp}</i>
         <div className='reviews__rating'>{review.rating}</div>
         <p>{review.comment}</p>
       </div>
     ))
   }
 
-  render () {
+  render = () => {
     const { reviews } = this.state
 
     return (

@@ -19,6 +19,8 @@ class ProductsController < ApplicationController
     @reviews = product.reviews.created_at_desc.first(5)
     @review = Review.new(review_params)
     @view_count = view_count
+
+    push_reviews_to_gon
   end
 
   def new
@@ -87,5 +89,9 @@ class ProductsController < ApplicationController
 
   def update_view_count
     redis.hincrby(:product_view_count, product.id, 1)
+  end
+
+  def push_reviews_to_gon
+    gon.product_reviews = ReviewSerializer.serialize(@reviews, is_collection: true)
   end
 end
