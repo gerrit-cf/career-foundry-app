@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
-    "preact": "^8.2.6"
+    "preact": "^8.2.6",
+    "react-stars": "^2.2.5"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
