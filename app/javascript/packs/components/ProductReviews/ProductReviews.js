@@ -1,4 +1,6 @@
 import { h, render, Component } from 'preact'
+import React from 'react'
+import ReactStars from 'react-stars'
 
 export const initializeProductReviews = () => {
   const reviewsElement = document.getElementById('product-reviews')
@@ -22,7 +24,12 @@ class ProductReviews extends Component {
       <div className='reviews__review'>
         <strong>{review.name} </strong>
         <i>{review.timestamp}</i>
-        <div className='reviews__rating'>{review.rating}</div>
+        <ReactStars
+          className='reviews__rating'
+          count={5}
+          edit={false}
+          value={review.rating}
+        />
         <p>{review.comment}</p>
       </div>
     ))

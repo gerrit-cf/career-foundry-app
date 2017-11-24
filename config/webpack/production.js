@@ -1,3 +1,7 @@
 const environment = require('./environment')
+const customConfig = require('./config')
 
-module.exports = environment.toWebpackConfig()
+module.exports = module.exports = {
+  ...environment.toWebpackConfig(),
+  ...customConfig
+}
