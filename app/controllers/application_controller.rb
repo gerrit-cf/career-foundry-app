@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_action :push_user_information_to_gon
+
   after_action :store_redirect_path, unless: :authentication_controller?
   after_action :verify_authorized
 
@@ -47,5 +49,11 @@ class ApplicationController < ActionController::Base
 
   def redis(&block)
     Redis.store(&block)
+  end
+
+  def push_user_information_to_gon
+    gon.user = {
+      admin: current_user&.admin?
+    }
   end
 end
