@@ -16,7 +16,7 @@ export const initializeProductReviews = () => {
 const getAverageRating = data => parseFloat(data['average_rating'])
 const getReviews = data => data['reviews'].data.map(review => ({ ...review.attributes, id: review.id }))
 const getUserIsAdmin = () => gon.user.admin
-const getProductId = () => gon.productId
+const getProductId = () => gon['product_id']
 
 const requestOptions = {
   method: 'delete',
@@ -44,7 +44,7 @@ class ProductReviews extends Component {
   }
 
   deleteReview (productId, id) {
-    fetch(`/products/${productId}/reviews/${id}`, requestOptions)
+    fetch(`/products/${productId}/reviews/${id}.json`, requestOptions)
       .then(response => response.json())
       .then(this.handleDeletedReview)
 

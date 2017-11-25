@@ -6,7 +6,10 @@ class ReviewsController < ApplicationController
   def index
     authorize Review, :index?
 
-    @reviews = reviewable.reviews.paginate(page: params[:page])
+    @reviews = reviewable
+                 .reviews
+                 .created_at_desc
+                 .paginate(page: params[:page])
 
     render 'reviews/index'
   end
@@ -36,10 +39,18 @@ class ReviewsController < ApplicationController
 
     review.destroy!
 
-    render json: {
-      average_rating: reviewable.average_rating,
-      reviews: serialized_teaser_reviews
-  }
+    respond_to do |format|
+      format.html do
+        flash[:success] = 'Der Kommentar wurde gelöscht.'
+        redirect_to polymorphic_path(reviewable)
+      end
+      format.json do
+        render json: {
+          average_rating: reviewable.average_rating,
+          reviews: serialized_teaser_reviews
+        }
+      end
+    end
   end
 
   private
