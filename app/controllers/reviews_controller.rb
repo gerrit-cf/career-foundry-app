@@ -36,11 +36,14 @@ class ReviewsController < ApplicationController
 
     review.destroy!
 
-    flash[:success] = 'Review was deleted.'
-    redirect_to polymorphic_path(reviewable)
+    render json: serialized_teaser_reviews
   end
 
   private
+
+  def serialized_teaser_reviews
+    ReviewSerializer.serialize(reviewable.teaser_reviews, is_collection: true)
+  end
 
   def handle_create_success
     flash[:success] = 'Successfully created your comment. Thanks for your feedback.'
