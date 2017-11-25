@@ -39,7 +39,6 @@
             %h3 What our customers say
             #product-reviews
               // Frontend rendering here
-            = link_to 'Show all reviews', product_reviews_path(product) if product.reviews.any?
             - if signed_in?
               %hr
               %h4 Submit a review

@@ -15,7 +15,8 @@ export const initializeProductReviews = () => {
 
 const getAverageRating = data => parseFloat(data['average_rating'])
 const getReviews = data => data['reviews'].data.map(review => ({ ...review.attributes, id: review.id }))
-const getUserIsAdmin = data => data.user.admin
+const getUserIsAdmin = () => gon.user.admin
+const getProductId = () => gon.productId
 
 const requestOptions = {
   method: 'delete',
@@ -29,8 +30,9 @@ const requestOptions = {
 class ProductReviews extends Component {
   state = {
     averageRating: getAverageRating(gon),
+    productId: getProductId(),
     reviews: getReviews(gon),
-    userIsAdmin: getUserIsAdmin(gon)
+    userIsAdmin: getUserIsAdmin()
   }
 
 
@@ -87,7 +89,7 @@ class ProductReviews extends Component {
   }
 
   renderReviews = () => {
-    const { averageRating, reviews } = this.state
+    const { averageRating, productId, reviews } = this.state
 
     return (
       <div>
@@ -100,6 +102,10 @@ class ProductReviews extends Component {
           />
         </div>
         {reviews.map(review => this.renderReview(review))}
+        {reviews.length ?
+          <a href={`/products/${productId}/reviews`}>Show all reviews</a> :
+          null
+        }
       </div>
     )
   }
