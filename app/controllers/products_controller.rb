@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
   def show
     authorize product, :show?
 
-    @reviews = product.reviews.created_at_desc.first(5)
+    @reviews = product.reviews.includes(:user).created_at_desc.first(5)
     @review = Review.new(review_params)
     @view_count = view_count
 
@@ -93,5 +93,6 @@ class ProductsController < ApplicationController
 
   def push_reviews_to_gon
     gon.product_reviews = ReviewSerializer.serialize(@reviews, is_collection: true)
+    gon.product_average_rating = ProductPresenter.new(product, nil).average_rating
   end
 end

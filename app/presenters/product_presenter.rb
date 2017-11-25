@@ -19,6 +19,6 @@ class ProductPresenter < ApplicationPresenter
   end
 
   def average_rating
-    reviews.average(:rating)
+    (reviews.average(:rating) || 0).round(1)
   end
 end
