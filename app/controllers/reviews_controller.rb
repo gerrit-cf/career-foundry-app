@@ -36,7 +36,10 @@ class ReviewsController < ApplicationController
 
     review.destroy!
 
-    render json: serialized_teaser_reviews
+    render json: {
+      average_rating: reviewable.average_rating,
+      reviews: serialized_teaser_reviews
+  }
   end
 
   private

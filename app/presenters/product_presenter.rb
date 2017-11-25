@@ -17,8 +17,4 @@ class ProductPresenter < ApplicationPresenter
   def formatted_price
     h.number_to_currency(price, unit: '€ ')
   end
-
-  def average_rating
-    (reviews.average(:rating) || 0).round(1)
-  end
 end

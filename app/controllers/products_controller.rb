@@ -16,7 +16,6 @@ class ProductsController < ApplicationController
   def show
     authorize product, :show?
 
-    @reviews = product.teaser_reviews
     @review = Review.new(review_params)
     @view_count = view_count
 
@@ -91,8 +90,13 @@ class ProductsController < ApplicationController
     redis.hincrby(:product_view_count, product.id, 1)
   end
 
+  # TODO: Dry up (identical with ReviewsController)
   def push_reviews_to_gon
-    gon.product_reviews = ReviewSerializer.serialize(@reviews, is_collection: true)
-    gon.product_average_rating = ProductPresenter.new(product, nil).average_rating
+    gon.average_rating = product.average_rating
+    gon.reviews = serialized_teaser_reviews
+  end
+
+  def serialized_teaser_reviews
+    ReviewSerializer.serialize(product.teaser_reviews, is_collection: true)
   end
 end
