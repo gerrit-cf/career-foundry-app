@@ -43,4 +43,29 @@ It\'s not enough to get from A to B. Zektor\'s agile, responsive ride feel and a
     colour: 'Metallic Charcoal',
     price: 750
   }
-].each { |product| Product.create!(product) }
+].each { |product| Product.create(product) }
+
+[
+  {
+    first_name: 'Bud',
+    last_name: 'Spencer',
+    email: 'bud@spencer.com',
+    password: 'password',
+    password_confirmation: 'password'
+  }
+].each { |user| User.create(user) }
+
+Product.find_each do |product|
+  product.reviews.create([
+    {
+      comment: 'I rate 5 / 7. Perfect score!',
+      rating: (1..5).to_a.sample,
+      user: User.first
+    },
+    {
+      comment: '1 Kommentar',
+      rating: (1..5).to_a.sample,
+      user: User.first
+    }
+  ])
+end
