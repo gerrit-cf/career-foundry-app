@@ -22,6 +22,8 @@ class ReviewForm extends Component {
     const { comment, rating } = this.state
     const { productId } = this.props
 
+    if (!rating) return this.setState({ error: 'Please choose a rating.' })
+
     fetch(
       `/products/${productId}/reviews`,
       {
@@ -39,7 +41,7 @@ class ReviewForm extends Component {
   handleSubmitSuccess = () => this.setState({ success: true })
 
   renderForm = () => {
-    const { comment, rating, success } = this.state
+    const { comment, error, rating, success } = this.state
 
     return (
       <div>
@@ -63,6 +65,10 @@ class ReviewForm extends Component {
             value={comment}
           />
         </div>
+        {error ?
+          <div className='reviews__form-error'>{error}</div> :
+          null
+        }
         <button
           className='btn btn-primary'
           onClick={this.handleSubmit}
