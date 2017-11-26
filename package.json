@@ -1,6 +1,10 @@
 {
   "name": "career_foundry_app",
   "private": true,
+  "engines": {
+    "node": "9.x",
+    "yarn": ">=0.25"
+  },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
     "preact": "^8.2.6",
