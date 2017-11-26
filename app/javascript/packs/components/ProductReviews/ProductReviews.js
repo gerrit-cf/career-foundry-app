@@ -83,7 +83,10 @@ class ProductReviews extends Component {
   }
 
   componentDidMount () {
-    const { productId } = this.state
+    const { productId, userIsSignedIn } = this.state
+
+    // Don't even bother the server again if not signed in
+    if (!userIsSignedIn) return
 
     Cable.productSubscription = Cable.subscriptions.create('ProductChannel', {
       connected: function() {
