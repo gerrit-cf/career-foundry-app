@@ -7,16 +7,31 @@ import { getCsrfToken } from '../../helpers'
 
 export const initializeProductReviews = () => {
   const reviewsElement = document.getElementById('product-reviews')
+  const reviewsIndexElements = document.getElementsByClassName('reviews__rating')
 
-  if (!reviewsElement) return
+  for (const indexElement of reviewsIndexElements) {
+    const rating = indexElement.dataset.rating
 
-  render(<ProductReviews />, reviewsElement, reviewsElement.lastChild)
+    render(
+      <ReactStars
+        count={5}
+        edit={false}
+        value={rating}
+      />,
+      indexElement,
+      indexElement.lastChild
+    )
+  }
+
+  if (reviewsElement) {
+    render(<ProductReviews />, reviewsElement, reviewsElement.lastChild)
+  }
 }
 
 const getAverageRating = data => parseFloat(data['average_rating'])
 const getReviews = data => data['reviews'].data.map(review => ({ ...review.attributes, id: review.id }))
 const getUserIsAdmin = () => gon.user.admin
-const getProductId = () => gon['product_id']
+const getProductId = () => gon['reviewable_id']
 
 const requestOptions = {
   method: 'delete',
@@ -27,6 +42,8 @@ const requestOptions = {
   }
 }
 
+const deleteResource = (productId, id) => `/products/${productId}/reviews/${id}.json`
+
 class ProductReviews extends Component {
   state = {
     averageRating: getAverageRating(gon),
@@ -35,8 +52,7 @@ class ProductReviews extends Component {
     userIsAdmin: getUserIsAdmin()
   }
 
-
-  handleDeletedReview = (data, x) => {
+  handleDeletedReview = (productId, data) => {
     this.setState({
       averageRating: getAverageRating(data),
       reviews: getReviews(data)
@@ -44,10 +60,11 @@ class ProductReviews extends Component {
   }
 
   deleteReview (productId, id) {
-    fetch(`/products/${productId}/reviews/${id}.json`, requestOptions)
-      .then(response => response.json())
-      .then(this.handleDeletedReview)
+    let resource = deleteResource(productId, id)
 
+    fetch(resource, requestOptions)
+      .then(response => response.json())
+      .then((json) => this.handleDeletedReview(productId, json))
   }
 
   renderDeleteLink = (productId, id) => (

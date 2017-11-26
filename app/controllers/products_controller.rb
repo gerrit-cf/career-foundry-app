@@ -92,7 +92,7 @@ class ProductsController < ApplicationController
 
   # TODO: Dry up (identical with ReviewsController)
   def push_reviews_to_gon
-    gon.product_id = product.id
+    gon.reviewable_id = product.id
     gon.average_rating = product.average_rating
     gon.reviews = serialized_teaser_reviews
   end

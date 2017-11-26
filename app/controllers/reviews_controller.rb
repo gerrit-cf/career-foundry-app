@@ -11,6 +11,8 @@ class ReviewsController < ApplicationController
                  .created_at_desc
                  .paginate(page: params[:page])
 
+    push_reviews_to_gon
+
     render 'reviews/index'
   end
 
@@ -36,28 +38,24 @@ class ReviewsController < ApplicationController
     review = policy_scope(Review).find(params[:id])
 
     authorize review, :destroy?
-
     review.destroy!
 
     respond_to do |format|
       format.html do
         flash[:success] = 'Der Kommentar wurde gelöscht.'
-        redirect_to polymorphic_path(reviewable)
+        redirect_to polymorphic_path(reviewable), status: :see_other
       end
+
       format.json do
         render json: {
           average_rating: reviewable.average_rating,
-          reviews: serialized_teaser_reviews
+          reviews: serialized_reviews(reviewable.teaser_reviews)
         }
       end
     end
   end
 
   private
-
-  def serialized_teaser_reviews
-    ReviewSerializer.serialize(reviewable.teaser_reviews, is_collection: true)
-  end
 
   def handle_create_success
     flash[:success] = 'Successfully created your comment. Thanks for your feedback.'
@@ -96,5 +94,15 @@ class ReviewsController < ApplicationController
 
   def reviewable
     @reviewable ||= policy_scope(reviewable_klass).find(params[reviewable_params_key])
+  end
+
+  def push_reviews_to_gon
+    gon.reviewable_id = reviewable.id
+    gon.average_rating = reviewable.average_rating
+    gon.reviews = serialized_reviews(@reviews)
+  end
+
+  def serialized_reviews(reviews)
+    ReviewSerializer.serialize(reviews, is_collection: true)
   end
 end
