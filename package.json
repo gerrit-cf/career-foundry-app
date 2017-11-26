@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
+    "actioncable": "^5.1.4",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "react-stars": "^2.2.5"

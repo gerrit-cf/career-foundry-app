@@ -5,6 +5,33 @@ import ReactStars from 'react-stars'
 import ReviewForm from './ReviewForm'
 // Todo: Make webpack resolve this shit properly
 import { getCsrfToken } from '../../helpers'
+import Cable from '../../actioncable/Cable'
+
+/*
+App.product = App.cable.subscriptions.create('ProductChannel', {
+  connected: function() {
+    // Called when the subscription is ready for use on the server
+  },
+
+  disconnected: function() {
+    // Called when the subscription has been terminated by the server
+  },
+
+  received: function(data) {
+    // Called when there's incoming data on the websocket for this channel
+    $('.alert.alert-info').show();
+  },
+
+  listenToComments: function() {
+    var productId = $('[data-product-id]').data('product-id');
+    return this.perform('listen', { 'product-id': productId });
+  }
+});
+
+$(document).on('turbolinks:load', function() {
+  App.product.listenToComments();
+})
+*/
 
 export const initializeProductReviews = () => {
   const reviewsElement = document.getElementById('product-reviews')
@@ -53,6 +80,22 @@ class ProductReviews extends Component {
     reviews: getReviews(gon),
     userIsAdmin: getUserIsAdmin(),
     userIsSignedIn: getUserIsSignedIn()
+  }
+
+  componentDidMount () {
+    const { productId } = this.state
+
+    Cable.productSubscription = Cable.subscriptions.create('ProductChannel', {
+      connected: function() {
+        this.perform('listen', { 'product-id': productId })
+      },
+      received: (data) => {
+        this.setState({
+          averageRating: getAverageRating(data),
+          reviews: getReviews(data)
+        })
+      }
+    })
   }
 
   handleDeletedReview = (productId, data) => {

@@ -24,7 +24,10 @@ class ReviewsController < ApplicationController
     authorize @review, :create?
 
     if @review.save
-      ProductChannel.broadcast_to reviewable.id, review: @review
+      ProductChannel.broadcast_to reviewable.id, {
+        average_rating: reviewable.average_rating,
+        reviews: serialized_reviews(reviewable.teaser_reviews)
+      }
       render json: ReviewSerializer.serialize(@review)
     else
       head :unprocessable_entity

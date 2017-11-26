@@ -8,7 +8,14 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import ProductReviews, { initializeProductReviews } from './components/ProductReviews'
+import Cable from './actioncable/Cable'
 
 document.addEventListener('turbolinks:load', () => {
   initializeProductReviews()
+})
+
+document.addEventListener('turbolinks:visit', () => {
+  if (Cable.productSubscription) {
+    Cable.subscriptions.remove(Cable.productSubscription)
+  }
 })
