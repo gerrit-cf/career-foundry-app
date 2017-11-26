@@ -2,6 +2,7 @@ import { h, render, Component } from 'preact'
 import React from 'react'
 import ReactStars from 'react-stars'
 
+import ReviewForm from './ReviewForm'
 // Todo: Make webpack resolve this shit properly
 import { getCsrfToken } from '../../helpers'
 
@@ -31,6 +32,7 @@ export const initializeProductReviews = () => {
 const getAverageRating = data => parseFloat(data['average_rating'])
 const getReviews = data => data['reviews'].data.map(review => ({ ...review.attributes, id: review.id }))
 const getUserIsAdmin = () => gon.user.admin
+const getUserIsSignedIn = () => gon.user['signed_in']
 const getProductId = () => gon['reviewable_id']
 
 const requestOptions = {
@@ -49,7 +51,8 @@ class ProductReviews extends Component {
     averageRating: getAverageRating(gon),
     productId: getProductId(),
     reviews: getReviews(gon),
-    userIsAdmin: getUserIsAdmin()
+    userIsAdmin: getUserIsAdmin(),
+    userIsSignedIn: getUserIsSignedIn()
   }
 
   handleDeletedReview = (productId, data) => {
@@ -128,11 +131,12 @@ class ProductReviews extends Component {
   }
 
   render = () => {
-    const { reviews } = this.state
+    const { reviews, userIsSignedIn, productId } = this.state
 
     return (
       <div className='product__reviews'>
         {reviews.length ? this.renderReviews() : 'There are no reviews yet.'}
+        {userIsSignedIn ? <ReviewForm productId={productId} /> : null}
       </div>
     )
   }

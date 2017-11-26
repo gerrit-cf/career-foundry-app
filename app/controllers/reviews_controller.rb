@@ -23,14 +23,11 @@ class ReviewsController < ApplicationController
 
     authorize @review, :create?
 
-    respond_to do |format|
-      if @review.save
-        ProductChannel.broadcast_to reviewable.id, review: @review
-
-        format.html { handle_create_success }
-      else
-        format.html { handle_create_error }
-      end
+    if @review.save
+      ProductChannel.broadcast_to reviewable.id, review: @review
+      render json: ReviewSerializer.serialize(@review)
+    else
+      head :unprocessable_entity
     end
   end
 

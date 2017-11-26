@@ -39,17 +39,3 @@
             %h3 What our customers say
             #product-reviews
               // Frontend rendering here
-            - if signed_in?
-              %hr
-              %h4 Submit a review
-              #product-reviews-form
-                = form_for [product, @review], remote: true do |f|
-                  .form-group
-                    = f.label :comment
-                    = f.text_area :comment, rows: 6, class: 'form-control'
-
-                  .form-group
-                    = f.label :rating
-                    .rating
-
-                  = f.submit 'Create a review', class: 'btn btn-primary'

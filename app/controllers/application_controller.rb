@@ -53,6 +53,7 @@ class ApplicationController < ActionController::Base
 
   def push_user_information_to_gon
     gon.user = {
+      signed_in: signed_in?,
       admin: current_user&.admin?
     }
   end
