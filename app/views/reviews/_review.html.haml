@@ -2,7 +2,7 @@
   .reviews__review
     %strong= review.user
     %i= "#{review.time_ago} ago"
-    .reviews__rating{ data: { score: review.rating } }
+    .reviews__rating{ data: { rating: review.rating } }
     %p= review.comment
 
     - if signed_in? && current_user.admin?
