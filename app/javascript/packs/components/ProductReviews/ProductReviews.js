@@ -7,32 +7,6 @@ import ReviewForm from './ReviewForm'
 import { getCsrfToken } from '../../helpers'
 import Cable from '../../actioncable/Cable'
 
-/*
-App.product = App.cable.subscriptions.create('ProductChannel', {
-  connected: function() {
-    // Called when the subscription is ready for use on the server
-  },
-
-  disconnected: function() {
-    // Called when the subscription has been terminated by the server
-  },
-
-  received: function(data) {
-    // Called when there's incoming data on the websocket for this channel
-    $('.alert.alert-info').show();
-  },
-
-  listenToComments: function() {
-    var productId = $('[data-product-id]').data('product-id');
-    return this.perform('listen', { 'product-id': productId });
-  }
-});
-
-$(document).on('turbolinks:load', function() {
-  App.product.listenToComments();
-})
-*/
-
 export const initializeProductReviews = () => {
   const reviewsElement = document.getElementById('product-reviews')
   const reviewsIndexElements = document.getElementsByClassName('reviews__rating')
@@ -76,6 +50,7 @@ const deleteResource = (productId, id) => `/products/${productId}/reviews/${id}.
 class ProductReviews extends Component {
   state = {
     averageRating: getAverageRating(gon),
+    newReview: false,
     productId: getProductId(),
     reviews: getReviews(gon),
     userIsAdmin: getUserIsAdmin(),
@@ -95,6 +70,7 @@ class ProductReviews extends Component {
       received: (data) => {
         this.setState({
           averageRating: getAverageRating(data),
+          newReview: true,
           reviews: getReviews(data)
         })
       }
@@ -177,10 +153,11 @@ class ProductReviews extends Component {
   }
 
   render = () => {
-    const { reviews, userIsSignedIn, productId } = this.state
+    const { newReview, productId, reviews, userIsSignedIn } = this.state
 
     return (
       <div className='product__reviews'>
+        {newReview && <div className='alert alert-info'>A new review was posted.</div>}
         {reviews.length ? this.renderReviews() : 'There are no reviews yet.'}
         {userIsSignedIn ? <ReviewForm productId={productId} /> : null}
       </div>
