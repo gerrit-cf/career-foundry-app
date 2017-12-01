@@ -8,9 +8,17 @@ describe ProductsController do
   before { sign_in user }
 
   describe 'GET #index' do
-    before { get '/products' }
+    context 'without a search parameter' do
+      before { get '/products' }
 
-    it { is_expected.to be_successful }
+      it { is_expected.to be_successful }
+    end
+
+    context 'with a search parameter' do
+      before { get '/products', params: { search_term: 'Bike XY' } }
+
+      it { is_expected.to be_successful }
+    end
   end
 
   describe 'GET #show' do
@@ -19,6 +27,20 @@ describe ProductsController do
     before { get "/products/#{product.id}" }
 
     it { is_expected.to be_successful }
+  end
+
+  describe 'GET #new' do
+    before { get '/products/new' }
+
+    it { is_expected.to_not be_successful }
+  end
+
+  describe 'GET #edit' do
+    let(:product) { create :product }
+
+    before { get "/products/#{product.id}/edit" }
+
+    it { is_expected.to_not be_successful }
   end
 
   describe 'POST #create' do
@@ -53,20 +75,42 @@ describe ProductsController do
     let(:user) { create :user, :admin }
 
     describe 'POST #create' do
-      it do
-        expect do
-          post '/products', params: { product: attributes_for(:product) }
-        end.to change(Product, :count).by(1)
+      context 'with valid params' do
+        it do
+          expect do
+            post '/products', params: { product: attributes_for(:product) }
+          end.to change(Product, :count).by(1)
+        end
+      end
+
+      context 'with invalid prams' do
+        let(:product_params) { attributes_for(:product).merge(name: nil) }
+
+        it do
+          expect do
+            post '/products', params: { product: product_params }
+          end.to_not change(Product, :count)
+        end
       end
     end
 
     describe 'PUT #update' do
       let(:product) { create :product, name: 'Foo' }
 
-      it do
-        expect do
-          put "/products/#{product.id}", params: { product: { name: 'Bar' } }
-        end.to change { product.reload.name }.from('Foo').to('Bar')
+      context 'with valid params' do
+        it do
+          expect do
+            put "/products/#{product.id}", params: { product: { name: 'Bar' } }
+          end.to change { product.reload.name }.from('Foo').to('Bar')
+        end
+      end
+
+      context 'with invalid params' do
+        it do
+          expect do
+            put "/products/#{product.id}", params: { product: { name: nil } }
+          end.to_not change { product.reload.name }
+        end
       end
     end
 
